@@ -15,12 +15,12 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-====================================================================================<br>
+==============================================================================<br>
 # 課題5_API関連<br>
 <br>
 ゴール: connpassのAPIを受けとって画面に表示する<br>
 <br>
-以下も調査してね〜<br>
+以下も調査すること<br>
 1.サーバー、クライアントとはなにか？<br>
 2.http、httpsとは？<br>
 3.リクエストメゾットに関して<br>
@@ -30,7 +30,8 @@ samples, guidance on mobile development, and a full API reference.
 7.Restful APIとは？<br>
 8.パースとは何か？<br>
 <br>
-## サーバー、クライアントとはなにか？<br>
+
+## 1.サーバー、クライアントとはなにか？<br>
 サーバー : ネットワーク上の他のシステムにサービスを提供するシステム<br>
 クライアント : サーバから提供されるリモートサービスを利用するシステム<br>
 <br>
@@ -42,19 +43,22 @@ WebにおけるクライアントはWebブラウザを、サーバはWebサー�
 参考資料<br>
 ・『Webを支える技術 HTTP、URI、HTML、そしてREST』山本陽平 WEB+DB PRESS plus<br>
 <br>
-## HTTP、HTTPSとは?<br>
+
+## 2.HTTP、HTTPSとは?<br>
 HTTPは Hypertext Transfer Protocol の略で、TCP/IP(Transmission Control Protocol/Internet Protocol)をベースとしたプロトコル(規約)。<br>
 RFC2616で規程されたバージョン1.1が長らく標準的に利用されているが、バージョン2.0、3.0も存在する。<br>
 HTTPはステートレス＝「サーバがクライアントのアプリケーション状態を保存しない制約」のプロトコルとして設計されており、
 クライアントが自らのアプリケーション状態を覚え、リクエストの処理に必要な情報がすべて含まれる「自己記述的メッセージ」でリクエストを送信する。<br>
 <br>
 参考資料<br>
-・『Webを支える技術 HTTP、URI、HTML、そしてREST』山本陽平 WEB+DB PRESS plus<br>
-・HTTP の進化<br>
-https://developer.mozilla.org/ja/docs/Web/HTTP/Basics_of_HTTP/Evolution_of_HTTP<br>
+・『Webを支える技術 HTTP、URI、HTML、そしてREST』山本陽平 WEB+DB PRESS plus<br> 
+
+・ [HTTPの進化](https://developer.mozilla.org/ja/docs/Web/HTTP/Basics_of_HTTP/Evolution_of_HTTP) <br>
+
 <br>
 <br>
-## リクエストメソッドに関して<br>
+
+## 3.リクエストメソッドに関して<br>
 HTTPリクエストは「クライアントが行いたい処理をサーバに伝える」ためにリクエストメソッドを定義している。<br>
 HTTP 1.1 におけるリクエストメソッドの定義は以下の8つである。<br>
 GET/POST/PUT/DELETE/HEAD/OPTIONS/TRACE/CONNECTの8つのメソッドのうち、CRUD処理に当たるのは以下の4つである。<br>
@@ -66,14 +70,18 @@ Delete:DELETE<br>
 参考資料<br>
 ・『Webを支える技術 HTTP、URI、HTML、そしてREST』山本陽平 WEB+DB PRESS plus<br>
 <br>
-## paramとbodyの違い、使い所<br>
+
+## 4.paramとbodyの違い、使い所<br>
 
 ・paramとは
 HTTPリクエストのGETメソッドの冒頭、リクエスト行のURIのドメイン名以降(?以降)の部分。
 Pathparameter(パスパラメータ)とqueryparameter(クエリパラメータ)がある。
 
 例
+
+```
 https://example.com/pathparameter/{pathparameter}?queryparameter1=hoge&queryparameter2=fuga
+```
 
 Pathparameter(パスパラメータ)は特定のリソースを識別するために必要な情報
 queryparameter(クエリパラメータ)は特定のリソースを操作して取得する際に必要な情報
@@ -83,18 +91,20 @@ HTTPリクエストのPOSTメソッドのbody部分。GETメソッドのparam部
 Webページでの入力画面の情報が記載されている。
 
 参考資料
-・REST APIの始め方 (主要なHTTPメソッド)
-https://medium.com/@Akitsuyoshi/rest-api%E3%81%AE%E5%A7%8B%E3%82%81%E6%96%B9-%E4%B8%BB%E8%A6%81%E3%81%AAhttp%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89-a730dcb4a3a8
+・[REST APIの始め方 (主要なHTTPメソッド)](https://medium.com/@Akitsuyoshi/rest-api%E3%81%AE%E5%A7%8B%E3%82%81%E6%96%B9-%E4%B8%BB%E8%A6%81%E3%81%AAhttp%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89-a730dcb4a3a8)
+
+・[[RESTful API]パスパラメータ、クエリパラメータ、リクエストボディの違いと設計](https://qiita.com/Shokorep/items/b7697a146cbb1c3e9f0b)
 
 <br>
 <br>
-## header、body、footerについて<br>
+
+## 5.header、body、footerについて<br>
 HTTPリクエストにおけるheader部分
 GETメソッドの「リクエスト行以降」がheader
 主に下記の構成となっている
 
 ```
-GET /https://example.com/pathparameter/{pathparameter}?queryparameter1=hoge&queryparameter2=fuga HTTP/1.1 
+GET /https://example.com/pathparameter/{pathparameter}?queryparameter1=hoge&queryparameter2=fuga HTTP/1.1 /* リクエスト行 */
 Host: localhost:8080
 Connection: keep-alive
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36
@@ -127,10 +137,11 @@ name1=hoge&comment2=fuga /* body */
 
 <br>
 <br>
-## text、json、xmlの違いと扱いどころ<br>
+
+## 6.text、json、xmlの違いと扱いどころ<br>
 ・text<br>
 文字(テキスト)と区切り文字(,)だけで記述されるCSV(Comma-Separated Values)などがある。<br>
-使い所:Excelなど。<br>
+使い所:???<br>
 <br>
 記述例<br>
 
@@ -183,7 +194,8 @@ Extensible Markup Languageの略。<br>
 
 <br>
 <br>
-## Restful APIとは？<br>
+
+## 7.Restful APIとは？<br>
 RESTはWebのアーキテクチャスタイル。アーキテクチャスタイルには他にも"MVC(Model-View-Controller)"や"Pipe & Filter"などがある。<br>
 アーキテクチャスタイルは「複数のアーキテクチャに共通する性質・様式・作法あるいは流儀」を指す言葉。<br>
 RESTは、Web="クライアント／サーバ"のアーキテクチャスタイルから派生したネットワークのアーキテクチャスタイルで、
@@ -196,14 +208,13 @@ RESTfulとは「RESTの制約に従っていてRESTらしいこと」を指し�
 <br>
 参考資料<br>
 ・『Webを支える技術 HTTP、URI、HTML、そしてREST』山本陽平 WEB+DB PRESS plus<br>
-・0からREST APIについて調べてみた<br>
-https://qiita.com/masato44gm/items/dffb8281536ad321fb08#:~:text=RESTful%20API(REST%20API)%E3%81%A8,%E3%81%AB%E5%BE%93%E3%81%A3%E3%81%A6%E7%AD%96%E5%AE%9A%E3%81%95%E3%82%8C%E3%81%9F%E3%82%82%E3%81%AE%E3%80%82 <br>
+・[0からREST APIについて調べてみた](https://qiita.com/masato44gm/items/dffb8281536ad321fb08#:~:text=RESTful%20API(REST%20API)%E3%81%A8,%E3%81%AB%E5%BE%93%E3%81%A3%E3%81%A6%E7%AD%96%E5%AE%9A%E3%81%95%E3%82%8C%E3%81%9F%E3%82%82%E3%81%AE%E3%80%82) <br>
 <br>
 <br>
-## パースとは何か？<br>
+
+## 8.パースとは何か？<br>
 一定の書式や文法に従って記述されたデータを解析し、プログラムで扱えるようなデータ構造の集合体に変換する機能・処理のこと。<br>
 <br>
 参考資料<br>
-・パースとは<br>
-http://e-words.jp/w/%E3%83%91%E3%83%BC%E3%82%B9.html<br>
+・[パースとは](http://e-words.jp/w/%E3%83%91%E3%83%BC%E3%82%B9.html) <br>
 <br>
