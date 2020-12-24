@@ -30,7 +30,7 @@ samples, guidance on mobile development, and a full API reference.
 7.Restful APIとは？<br>
 8.パースとは何か？<br>
 <br>
-## 1.サーバー、クライアントとはなにか？<br>
+## サーバー、クライアントとはなにか？<br>
 サーバー : ネットワーク上の他のシステムにサービスを提供するシステム<br>
 クライアント : サーバから提供されるリモートサービスを利用するシステム<br>
 <br>
@@ -42,7 +42,7 @@ WebにおけるクライアントはWebブラウザを、サーバはWebサー�
 参考資料<br>
 ・『Webを支える技術 HTTP、URI、HTML、そしてREST』山本陽平 WEB+DB PRESS plus<br>
 <br>
-## 2. HTTP、HTTPSとは?<br>
+## HTTP、HTTPSとは?<br>
 HTTPは Hypertext Transfer Protocol の略で、TCP/IP(Transmission Control Protocol/Internet Protocol)をベースとしたプロトコル(規約)。<br>
 RFC2616で規程されたバージョン1.1が長らく標準的に利用されているが、バージョン2.0、3.0も存在する。<br>
 HTTPはステートレス＝「サーバがクライアントのアプリケーション状態を保存しない制約」のプロトコルとして設計されており、
@@ -54,7 +54,7 @@ HTTPはステートレス＝「サーバがクライアントのアプリケー�
 https://developer.mozilla.org/ja/docs/Web/HTTP/Basics_of_HTTP/Evolution_of_HTTP<br>
 <br>
 <br>
-## 3.リクエストメソッドに関して<br>
+## リクエストメソッドに関して<br>
 HTTPリクエストは「クライアントが行いたい処理をサーバに伝える」ためにリクエストメソッドを定義している。<br>
 HTTP 1.1 におけるリクエストメソッドの定義は以下の8つである。<br>
 GET/POST/PUT/DELETE/HEAD/OPTIONS/TRACE/CONNECTの8つのメソッドのうち、CRUD処理に当たるのは以下の4つである。<br>
@@ -66,72 +66,68 @@ Delete:DELETE<br>
 参考資料<br>
 ・『Webを支える技術 HTTP、URI、HTML、そしてREST』山本陽平 WEB+DB PRESS plus<br>
 <br>
-## 4.paramとbodyの違い、使い所<br>
-・PARAMとは、オブジェクトの実行に必要な設定値であるパラメータを指定するタグ。<br>
-<param>タグは、<object>タグ、または<applet>タグ内で使用する。<br>
-パラメータの名前は<name>属性で指定し、<value>属性でその値を指定する。<br>
-例<br>
+## paramとbodyの違い、使い所<br>
 
-```
-<object data="sample.gif" type="image/gif" width=120 height=240><br>
-  <param name="パラメータ名" value="パラメータの値"><br>
-  <param name="bgcolor" value="FFF0E0"><br>
-  <param name="bgimage" value="sample.gif"><br>
-</object><br>
-```
+・paramとは
+HTTPリクエストのGETメソッドの冒頭、リクエスト行のURIのドメイン名以降(?以降)の部分。
+Pathparameter(パスパラメータ)とqueryparameter(クエリパラメータ)がある。
 
-<br>
-・BODYとは、文章や画像など、実際にブラウザの画面上に表示される内容を指定するタグ。<br>
-<body>タグの中に書かれたテキストや画像などがブラウザの画面上に表示される。<br>
-例<br>
+例
+https://example.com/pathparameter/{pathparameter}?queryparameter1=hoge&queryparameter2=fuga
 
-```
-<body><br>
-    <section><br>
-        <h2>このsectionの見出し</h2><br>
-        <ul><br>
-            <li><a><img src="画像のURL">paramとは</a><li><br>
-            <li><a><img src="画像のURL">bodyとは</a><li><br>
-        <ul><br>
-    </section><br>
-</body><br>
-```
+Pathparameter(パスパラメータ)は特定のリソースを識別するために必要な情報
+queryparameter(クエリパラメータ)は特定のリソースを操作して取得する際に必要な情報
+
+・bodyとは
+HTTPリクエストのPOSTメソッドのbody部分。GETメソッドのparam部分を切り出した部分でもある。
+Webページでの入力画面の情報が記載されている。
+
+参考資料
+・REST APIの始め方 (主要なHTTPメソッド)
+https://medium.com/@Akitsuyoshi/rest-api%E3%81%AE%E5%A7%8B%E3%82%81%E6%96%B9-%E4%B8%BB%E8%A6%81%E3%81%AAhttp%E3%83%A1%E3%82%BD%E3%83%83%E3%83%89-a730dcb4a3a8
 
 <br>
-参考資料<br>
-・param<br>
-https://html-coding.co.jp/annex/dictionary/html/param/#:~:text=%E3%81%A8%E3%81%AF,%E5%80%A4%E3%82%92%E6%8C%87%E5%AE%9A%E3%81%97%E3%81%BE%E3%81%99%E3%80%82 <br>
 <br>
-・body<br>
-https://html-coding.co.jp/annex/dictionary/html/body/<br>
-<br>
-<br>
-## 5.header、body、footerについて<br>
-HTMLの要素。<br>
-HTMLによるWebページ制作において、headerはページ最上部固定の箇所(ヘッダー)、bodyは本文(コンテンツ)を表示する箇所、footerはページ最下部固定の箇所(フッター)を指す。<br>
-構成としては以下のようになる。<br>
+## header、body、footerについて<br>
+HTTPリクエストにおけるheader部分
+GETメソッドの「リクエスト行以降」がheader
+主に下記の構成となっている
 
 ```
-<html><br>
-    <head><br>
-        <!-- ここの記述内容はWebブラウザには表示されない。主に読み込むCSSの指定等を行う。--><br>
-        <link rel="stylesheet" href="style.css"><br>
-    </head><br>
-    <header><br>
-        <!-- ヘッダー部分をHTMLで記述--><br>
-    </header><br>
-    <body><br>
-        <!--本文(コンテンツ)をHTMLで記述--><br>
-    </body><br>
-    <footer><br>
-        <!--フッター部分をHTMLで記述--><br>
-    </footer><br>
-</html><br>
+GET /https://example.com/pathparameter/{pathparameter}?queryparameter1=hoge&queryparameter2=fuga HTTP/1.1 
+Host: localhost:8080
+Connection: keep-alive
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36
+Accept: */*
+Referer: http://localhost:8080/
+Accept-Encoding: gzip, deflate, sdch, br
+Accept-Language: ja,en-US;q=0.8,en;q=0.6
+```
+
+POSTメソッドの「リクエスト行以降〜空行以前」がheader、「空行以降」がbody
+主に下記の構成になっている
+
+```
+POST /hoge/ HTTP/1.1 /* リクエスト行 */
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 22
+Cache-Control: max-age=0
+Origin: http://localhost:8080
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36
+Content-Type: application/x-www-form-urlencoded
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Referer: http://localhost:8080/hoge/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ja,en-US;q=0.8,en;q=0.6
+/* 空行 */
+name1=hoge&comment2=fuga /* body */
 ```
 
 <br>
 <br>
-## 6.text、json、xmlの違いと扱いどころ<br>
+## text、json、xmlの違いと扱いどころ<br>
 ・text<br>
 文字(テキスト)と区切り文字(,)だけで記述されるCSV(Comma-Separated Values)などがある。<br>
 使い所:Excelなど。<br>
@@ -148,7 +144,7 @@ HTMLによるWebページ制作において、headerはページ最上部固定�
 <br>
 ・JSON<br>
 データをJavaScriptのオブジェクトの形式で記述したもの。<br>
-使い所:データを登録し変数として引っ張ってくる場面。プルタブから住所の都道府県を選択する等。<br>
+使い所:RESTful APIのリクエスト設計のdefaultはJSONにするのが好ましい。<br>
 <br>
 記述例<br>
 
@@ -167,7 +163,7 @@ HTMLによるWebページ制作において、headerはページ最上部固定�
 Extensible Markup Languageの略。<br>
 汎用マークアップ言語SGMLの流れを受け継いで、W3Cのワーキンググループで仕様が策定された文書の構造化フォーマット。<br>
 タグ(要素)でデータ(コンテント)を囲み、さらにデータを入れ子構造にできる。<br>
-使い所:Ajax(Asynchronous JavaScript, XML)による非同期(ページ遷移を必要としない)通信を行う際にJavaScriptと一緒に利用する際に用いられる。<br>
+使い所:Ajax(Asynchronous JavaScript, XML)による非同期(ページ遷移を必要としない)通信を行う際にJavaScriptと一緒に利用する際に用いられる。RESTful APIの設計ではdefaultはJSONが好ましいとされるが、コストがかかる場合はXMLと併用する。<br>
 <br>
 記述例<br>
 
@@ -187,7 +183,7 @@ Extensible Markup Languageの略。<br>
 
 <br>
 <br>
-## 7.Restful APIとは？<br>
+## Restful APIとは？<br>
 RESTはWebのアーキテクチャスタイル。アーキテクチャスタイルには他にも"MVC(Model-View-Controller)"や"Pipe & Filter"などがある。<br>
 アーキテクチャスタイルは「複数のアーキテクチャに共通する性質・様式・作法あるいは流儀」を指す言葉。<br>
 RESTは、Web="クライアント／サーバ"のアーキテクチャスタイルから派生したネットワークのアーキテクチャスタイルで、
@@ -204,7 +200,7 @@ RESTfulとは「RESTの制約に従っていてRESTらしいこと」を指し�
 https://qiita.com/masato44gm/items/dffb8281536ad321fb08#:~:text=RESTful%20API(REST%20API)%E3%81%A8,%E3%81%AB%E5%BE%93%E3%81%A3%E3%81%A6%E7%AD%96%E5%AE%9A%E3%81%95%E3%82%8C%E3%81%9F%E3%82%82%E3%81%AE%E3%80%82 <br>
 <br>
 <br>
-## 8.パースとは何か？<br>
+## パースとは何か？<br>
 一定の書式や文法に従って記述されたデータを解析し、プログラムで扱えるようなデータ構造の集合体に変換する機能・処理のこと。<br>
 <br>
 参考資料<br>
