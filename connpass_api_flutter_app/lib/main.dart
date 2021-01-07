@@ -1,4 +1,5 @@
 // これは fature-Aブランチ切り分けのためのファイル内容変更用のコメントです
+// これは feature-Aブランチへ移動したことを確認するための追加コメントです
 import 'package:flutter/material.dart';
 
 void main() {
