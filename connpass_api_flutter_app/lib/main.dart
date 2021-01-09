@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// 別ファイルに切り分ける
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
