@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:convert'; // JSONのデコードとエンコード
 
 import 'package:connpass_api_flutter_app/detail.dart';
 import 'package:connpass_api_flutter_app/model/connpass_model.dart';
