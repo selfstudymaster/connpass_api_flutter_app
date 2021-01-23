@@ -1,226 +1,326 @@
+import 'dart:convert'; // JSONのデコードとエンコード
+
+import 'package:connpass_api_flutter_app/detail.dart';
+import 'package:connpass_api_flutter_app/model/connpass_model.dart';
+import 'package:connpass_api_flutter_app/model/event_model.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
 }
-// 事前に出力するデータが揃ってる場合その1
-/*
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // 出力するデータを記述
-    const data = [
-      Text("item0"),Text("item1"),Text("item2"),Text("item3"),Text("item4"),
-    ];
-    // 上記データを出力
     return MaterialApp(
-      home: Scaffold(
-        body: ListView(
-            // dataを呼び出すchildrenは必須
-            children: data
-        ),
+      title: 'Connpass API FLutter APP',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      home: MyHomePage(title: 'Connpassイベント検索アプリ'),
     );
   }
 }
-*/
 
-// 事前に出力するデータが揃ってる場合その2
-/*
-class MyApp extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  var _controller = TextEditingController();
+  var _repository = new ConnpassRepository();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('ListView'),
-        ),
-        body: ListView(
-            // 事前にWidgetの一覧を作成しておくchildren必須
-            children: [
-              _menuItem("メニュー1", Icon(Icons.settings)),
-              _menuItem("メニュー2", Icon(Icons.map)),
-              _menuItem("メニュー3", Icon(Icons.room)),
-              _menuItem("メニュー4", Icon(Icons.local_shipping)),
-              _menuItem("メニュー5", Icon(Icons.airplanemode_active)),
-            ]
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: ListView(
+          children: <Widget>[
+            _searchInput(),
+            _searchCount(),
+            _searchResult(),
+          ],
         ),
       ),
     );
   }
-  Widget _menuItem(String title, Icon icon) {
-    return Container(
-      decoration: new BoxDecoration(
-          border: new Border(bottom: BorderSide(width: 1.0, color: Colors.grey))
-      ),
-      child:ListTile(
-        leading: icon,
-        title: Text(
-          title,
-          style: TextStyle(
-              color:Colors.black,
-              fontSize: 18.0
+
+  Widget _searchInput() {
+    return ListView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: <Widget>[
+        Container(
+          child: Padding(
+            padding: EdgeInsets.all(12),
+            child: TextField(
+              decoration: InputDecoration(),
+              controller: _controller,
+            ),
           ),
         ),
-        onTap: () {
-          print("onTap called.");
-        }, // タップ
-        onLongPress: () {
-          print("onLongPress called.");
-        }, // 長押し
-      ),
-    );
-  }
-}
-*/
-
-// 表示する要素が事前にわからない場合 ListView.builder
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var list = [
-      "メッセージ",
-      "メッセージ",
-      "メッセージ",
-      "メッセージ",
-      "メッセージ",
-    ];
-    return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text('connpass_api_flutter_app'),
-            ),
-            body: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                if (index >= list.length) {
-                  list.addAll([
-                    "メッセージ",
-                    "メッセージ",
-                    "メッセージ",
-                    "メッセージ",
-                  ]);
-                }
-                return _messageItem(list[index]);
-              },
-            )));
-  }
-
-  Widget _messageItem(String title) {
-    return Container(
-      decoration: new BoxDecoration(
-          border:
-              new Border(bottom: BorderSide(width: 1.0, color: Colors.grey))),
-      child: ListTile(
-        title: Text(
-          title,
-          style: TextStyle(color: Colors.black, fontSize: 18.0),
+        Container(
+          padding: EdgeInsets.fromLTRB(100, 0, 100, 0),
+          child: RaisedButton(
+            child: const Text('Search'),
+            onPressed: _search,
+          ),
         ),
-        onTap: () {
-          print("onTap called.");
-        }, // タップ
-        onLongPress: () {
-          print("onLongTap called.");
-        }, // 長押し
-      ),
+      ],
     );
   }
-}
 
-// ListView.separated
-// 表示する要素が事前にわかっており、一行ごとに何か要素を差し込みたい場合に利用
-/*
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var list = ["メッセージ", "メッセージ", "メッセージ", "メッセージ", "メッセージ","メッセージ","メッセージ","メッセージ",];
-    return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text('ListView'),
-            ),
-            body: ListView.separated(
-              itemBuilder: (BuildContext context, int index) {
-                return _messageItem(list[index]);
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return separatorItem();
-              },
-              itemCount: list.length,
+  void _search() {
+    _getRepository(_controller.text).then((repository) {
+      setState(() {
+        _repository = repository;
+      });
+    });
+  }
+
+  Future<ConnpassRepository> _getRepository(String searchWord) async {
+    final response = await http.get(
+        'https://connpass.com/api/v1/event/?count=100&order=1&kewword=' +
+            searchWord);
+    if (response.statusCode == 200) {
+      final parsed = json.decode(response.body).cast<String, dynamic>();
+      ConnpassRepository repository = ConnpassRepository.fromJson(parsed);
+      return repository;
+    } else {
+      throw Exception('Fail to search repository');
+    }
+  }
+
+  Widget _searchCount() {
+    if (_repository.resultsReturned == null) {
+      return Container();
+    } else if (_repository.resultsReturned < 100) {
+      return Padding(
+        padding: EdgeInsets.all(12),
+        child: Text('検索結果は' + _repository.resultsReturned.toString() + '件です'),
+      );
+    } else {
+      return Padding(
+        padding: EdgeInsets.all(12),
+        child: Text('件数が多すぎるため全件を表示できません。\n 上限の100件を表示します。'),
+      );
+    }
+  }
+
+  Widget _searchResult() {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (BuildContext context, int index) {
+        if (_repository.events != null) {
+          final EventRepository event = _repository.events[index];
+          return _resultCard(event);
+        } else {
+          return null;
+        }
+      },
+      itemCount: _repository.resultsReturned,
+    );
+  }
+
+  Widget _resultCard(EventRepository eventRepository) {
+    return Card(
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Detail(event: eventRepository),
+              ));
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(12),
+              child: Text(eventRepository.title),
             )
-        )
-    );
-  }
-  Widget separatorItem() {
-    return Container(
-      height: 10,
-      color: Colors.orange,
-    );
-  }
-  Widget _messageItem(String title) {
-    return Container(
-      decoration: new BoxDecoration(
-          border: new Border(bottom: BorderSide(width: 1.0, color: Colors.grey))
-      ),
-      child:ListTile(
-        title: Text(
-          title,
-          style: TextStyle(
-              color:Colors.black,
-              fontSize: 18.0
-          ),
+          ],
         ),
-        onTap: () {
-          print("onTap called.");
-        }, // タップ
-        onLongPress: () {
-          print("onLongTap called.");
-        }, // 長押し
       ),
     );
   }
 }
-*/
 
 /*
-// ScrollDirection
-// スクロールの方向を変える
+
+void main() {
+  runApp(MyApp());
+}
+
 class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    var list = ["0","1","2","3","4","5","6","7","8","9"];
     return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text('ListView'),
-            ),
-            body: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                if (index >= list.length) {
-                  list.addAll(["0","1","2","3","4","5","6","7","8","9",]);
-                }
-                return _messageItem(list[index]);
-              },
-            )
-        )
+      title: 'Connpass API Flutter App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: MyHomePage(title: 'Connpassイベント検索アプリ'),
     );
   }
-  Widget _messageItem(String title) {
-    return Container(
-        width: 100,
-        decoration: new BoxDecoration(
-            border: new Border(right: BorderSide(width: 1.0, color: Colors.grey))
+}
+
+// ここから先はもう別ファイルにして、main.dartを極力小さくする。
+// main.dartは基本的には初期化のことだけ記述する。
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  var _controller = TextEditingController();
+  var _repository = new ConnpassRepository();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: ListView(
+          children: <Widget>[
+            _searchInput(),
+            _searchCount(),
+            _searchResult(),
+          ],
         ),
-        child:Center(
-          child:Text(
-            title,
-            style: TextStyle(
-                color:Colors.black,
-                fontSize: 20.0
+      ),
+    );
+  }
+
+  // ListViewで返すよりも、明示的に書いたほうがいい
+  Widget _searchInput() {
+    return ListView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: <Widget>[
+        Container(
+          // ふたつくらいならContainerよりColumnくらいでいい
+          child: Padding(
+            padding: EdgeInsets.all(12.0),
+            child: TextField(
+              decoration: InputDecoration(),
+              controller: _controller,
             ),
           ),
-        )
+        ),
+        Container(
+          // Dart公式的には .0が0だったら書かない
+          padding: EdgeInsets.fromLTRB(100.0, 0.0, 100.0, 0.0),
+          child: RaisedButton(
+            child: const Text('Search'),
+            onPressed: _search,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _search() {
+    _getRepository(_controller.text).then((repository) {
+      setState(() {
+        _repository = repository;
+      });
+    });
+  }
+
+  // Future{}は検索結果を取得するコード
+  // MVCのCに当たるでの, このファイル自体はVに当たるため別ファイルに分けてReposityディレクトリに入れる
+  // ConnpassRepositoryをModelにかえる
+  Future<ConnpassRepository> _getRepository(String searchWord) async {
+    final response = await http.get(
+        'https://connpass.com/api/v1/event/?count=100&order=1&keyword=' +
+            searchWord);
+    if (response.statusCode == 200) {
+      final parsed = json.decode(response.body).cast<String, dynamic>();
+      ConnpassRepository repository = ConnpassRepository.fromJson(parsed);
+      return repository;
+    } else {
+      throw Exception('Fail to search repository');
+    }
+  }
+
+  Widget _searchCount() {
+    if (_repository.resultsReturned == null) {
+      return Container();
+    } else if (_repository.resultsReturned < 100) {
+      return Padding(
+          padding: EdgeInsets.all(12.0),
+          child:
+              // + で連結するよりも、
+              // `検索結果は${_repository.resultsReturned.toString()}件です。`
+              Text('検索結果は' + _repository.resultsReturned.toString() + '件です。'));
+    } else {
+      return Padding(
+        padding: EdgeInsets.all(12.0),
+        // 2行にわけた理由は「見た目に合わせる意図」だが1行にしていい。
+        child: Text('件数が多すぎるため全件を表示できません。\n'
+            '上限である100件を表示しています。'),
+      );
+    }
+  }
+
+  Widget _searchResult() {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (BuildContext context, int index) {
+        if (_repository.events != null) {
+          final EventRepository event = _repository.events[index];
+          return _resultCard(event);
+        } else {
+          return null;
+        }
+      },
+      itemCount: _repository.resultsReturned,
+    );
+  }
+
+  Widget _resultCard(EventRepository eventRepository) {
+    return Card(
+      // CardでInkwell使うとタップしたときに波紋が出てユーザーがわかりやすい
+      child: InkWell(
+        onTap: () {
+          // pushNameでスラッシュフォームド等の名前にしてすぐHomeに戻せるようにする
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Detail(event: eventRepository),
+              ));
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(12.0),
+              child: Text(eventRepository.title),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
