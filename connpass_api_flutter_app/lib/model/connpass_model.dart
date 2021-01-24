@@ -1,5 +1,5 @@
 // connpass_model.dartにしてMODELディレクトリに入れる
-import 'package:connpass_api_flutter_app/model/event_model.dart';
+import 'package:connpass_api_flutter_app/model/event_model.dart'; // event_model.dartの呼び出し
 
 class ConnpassRepository {
   final int resultsReturned;
