@@ -1,10 +1,10 @@
 import 'dart:convert'; // JSONのデコードとエンコード
 
-import 'package:connpass_api_flutter_app/detail.dart';
-import 'package:connpass_api_flutter_app/model/connpass_model.dart';
-import 'package:connpass_api_flutter_app/model/event_model.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:connpass_api_flutter_app/detail.dart'; // detail.dartの読み出し
+import 'package:connpass_api_flutter_app/model/connpass_model.dart'; // connpass_model.dartの読み出し
+import 'package:connpass_api_flutter_app/model/event_model.dart'; // event_model.dartの読み出し
+import 'package:flutter/material.dart'; // マテリアルデザイン
+import 'package:http/http.dart' as http; // http
 
 void main() {
   runApp(MyApp());
@@ -34,8 +34,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _controller = TextEditingController();
-  var _repository = new ConnpassRepository();
+  var _controller = TextEditingController(); // メンバ関数
+  var _repository = new ConnpassRepository(); // メンバ関数
 
   @override
   Widget build(BuildContext context) {
