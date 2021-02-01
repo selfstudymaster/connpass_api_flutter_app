@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Connpass API FLutter APP',
+      title: 'Connpass API FLutter App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Connpassイベント検索アプリ'),
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// 以下は別ファイルに切り出す
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
