@@ -35,9 +35,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var _controller = TextEditingController(); // メンバ関数
-  var _repository = new ConnpassRepository(); // メンバ関数
+  // メンバ関数 テキストフィールド
+  var _controller = TextEditingController();
+  // メンバ関数 event_model.dartで定義したConnpassRepositoryクラスを初期化
+  var _repository = new ConnpassRepository();
 
+  // ListView
   @override
   Widget build(BuildContext context) {
     return Scaffold(
