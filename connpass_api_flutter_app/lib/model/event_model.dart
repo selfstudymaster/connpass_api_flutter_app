@@ -1,4 +1,3 @@
-// event_model.dartにしてMODELディレクトリに入れる
 class EventRepository {
   final int eventId;
   final String title;
