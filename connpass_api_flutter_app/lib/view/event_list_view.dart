@@ -30,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: ListView(
+          // ListViewのメンバ関数
           children: <Widget>[
             _searchInput(),
             _searchCount(),
@@ -40,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // メンバ関数 _searchInput()
   Widget _searchInput() {
     return ListView(
       shrinkWrap: true,
@@ -73,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // APIを呼び出す
   Future<ConnpassRepository> _getRepository(String searchWord) async {
     final response = await http.get(
         'https://connpass.com/api/v1/event/?count=100&order=1&kewword=' +
@@ -86,6 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  // メンバ関数 _searchCount()
   Widget _searchCount() {
     if (_repository.resultsReturned == null) {
       return Container();
@@ -102,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  // メンバ関数 _searchResult()
   Widget _searchResult() {
     return ListView.builder(
       shrinkWrap: true,

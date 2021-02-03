@@ -1,11 +1,13 @@
 import 'package:connpass_api_flutter_app/model/event_model.dart'; // event_model.dartの呼び出し
 
+// ConnpassRepositoryクラスの定義
 class ConnpassRepository {
   final int resultsReturned;
   final int resultsAvailable;
   final int resultsStart;
   final List<EventRepository> events;
 
+  // メンバ関数
   ConnpassRepository(
       {this.resultsReturned,
       this.resultsAvailable,
