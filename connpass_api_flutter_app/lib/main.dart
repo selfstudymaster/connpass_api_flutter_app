@@ -1,10 +1,4 @@
-// import 'dart:convert'; // JSONのデコードとエンコード
-
-// import 'package:http/http.dart' as http; // http
-import 'package:connpass_api_flutter_app/my_homepage.dart'; // my_homepage.dartの読み出し
-// import 'package:connpass_api_flutter_app/detail.dart'; // detail.dartの読み出し
-// import 'package:connpass_api_flutter_app/model/connpass_model.dart'; // connpass_model.dartの読み出し
-// import 'package:connpass_api_flutter_app/model/event_model.dart'; // event_model.dartの読み出し
+import 'package:connpass_api_flutter_app/view/event_list_view.dart';
 import 'package:flutter/material.dart'; // マテリアルデザイン
 
 void main() {
@@ -24,8 +18,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//
-// // 以下は別ファイルに切り出す
 // class MyHomePage extends StatefulWidget {
 //   MyHomePage({Key key, this.title}) : super(key: key);
 //
