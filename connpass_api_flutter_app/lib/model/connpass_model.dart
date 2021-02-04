@@ -7,7 +7,7 @@ class ConnpassRepository {
   final int resultsStart;
   final List<EventRepository> events;
 
-  // メンバ関数
+  // コンストラクタ
   ConnpassRepository(
       {this.resultsReturned,
       this.resultsAvailable,

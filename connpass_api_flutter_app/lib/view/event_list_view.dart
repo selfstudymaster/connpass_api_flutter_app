@@ -18,7 +18,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // メンバ関数 テキストフィールド
   var _controller = TextEditingController();
-  // メンバ関数 event_model.dartで定義したConnpassRepositoryクラスを初期化
+  // メンバ関数 event_model.dartで定義したConnpassRepositoryのインスタンス化
   var _repository = new ConnpassRepository();
 
   // ListView
@@ -123,6 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // タップしたら詳細をプッシュする
   Widget _resultCard(EventRepository eventRepository) {
     return Card(
       child: InkWell(

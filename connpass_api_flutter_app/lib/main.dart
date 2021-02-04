@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Connpass API Flutter App',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Connpassイベント検索アプリ'), // タイトル

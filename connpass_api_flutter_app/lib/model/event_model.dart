@@ -14,7 +14,7 @@ class EventRepository {
   final String address;
   final String place;
 
-  // メンバ関数
+  // コンストラクタ
   EventRepository({
     this.eventId,
     this.title,
