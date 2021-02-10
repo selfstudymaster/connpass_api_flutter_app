@@ -127,6 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _resultCard(EventRepository eventRepository) {
     return Card(
       child: InkWell(
+        // タップしたらpushして次ページにイベント詳細を表示
         onTap: () {
           Navigator.push(
               context,

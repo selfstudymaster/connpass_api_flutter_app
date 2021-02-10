@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Connpassイベント検索アプリ'), // タイトル
+      home: MyHomePage(title: 'Connpassイベント検索アプリ'), // ヘッダー部分のタイトル
     );
   }
 }
