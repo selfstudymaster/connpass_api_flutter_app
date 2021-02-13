@@ -1,4 +1,6 @@
+// EventRepositoryクラスの定義
 class EventRepository {
+  // メンバ変数
   final int eventId;
   final String title;
   final String catchMessage;
@@ -12,6 +14,7 @@ class EventRepository {
   final String address;
   final String place;
 
+  // コンストラクタ
   EventRepository({
     this.eventId,
     this.title,

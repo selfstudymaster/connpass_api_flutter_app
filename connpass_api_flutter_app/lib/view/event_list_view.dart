@@ -18,7 +18,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // メンバ関数 テキストフィールド
   var _controller = TextEditingController();
-  // メンバ関数 event_model.dartで定義したConnpassRepositoryクラスを初期化
+  // メンバ関数 event_model.dartで定義したConnpassRepositoryのインスタンス化
   var _repository = new ConnpassRepository();
 
   // ListView
@@ -30,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: ListView(
+          // ListViewのメンバ関数
           children: <Widget>[
             _searchInput(),
             _searchCount(),
@@ -40,6 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // メンバ関数 _searchInput()
   Widget _searchInput() {
     return ListView(
       shrinkWrap: true,
@@ -73,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // APIを呼び出す
   Future<ConnpassRepository> _getRepository(String searchWord) async {
     final response = await http.get(
         'https://connpass.com/api/v1/event/?count=100&order=1&kewword=' +
@@ -86,6 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  // メンバ関数 _searchCount()
   Widget _searchCount() {
     if (_repository.resultsReturned == null) {
       return Container();
@@ -102,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  // メンバ関数 _searchResult()
   Widget _searchResult() {
     return ListView.builder(
       shrinkWrap: true,
@@ -118,9 +123,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // タップしたら詳細をプッシュする
   Widget _resultCard(EventRepository eventRepository) {
     return Card(
       child: InkWell(
+        // タップしたらpushして次ページにイベント詳細を表示
         onTap: () {
           Navigator.push(
               context,

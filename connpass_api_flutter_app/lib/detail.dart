@@ -19,18 +19,20 @@ class Detail extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            titleSection(),
-            detailSection(),
+            titleSection(), // タイトル
+            detailSection(), // ディティール
           ],
         ),
       ),
     );
   }
 
+  // サムネイル
   Widget thumbnailSection() {
     return Container();
   }
 
+  // タイトル
   Widget titleSection() {
     return Container(
       padding: EdgeInsets.all(28),
@@ -53,6 +55,7 @@ class Detail extends StatelessWidget {
     );
   }
 
+  // ディティール
   Widget detailSection() {
     return Container(
       child: Column(
@@ -65,6 +68,7 @@ class Detail extends StatelessWidget {
     );
   }
 
+  // ディティールのビルド
   Widget buildDetail() {
     Map<String, String> detailMap = {
       '開催日時': changeTimeFormat(event.startedAt),
@@ -106,6 +110,7 @@ class Detail extends StatelessWidget {
     );
   }
 
+  // URLリンクのビルド
   Widget buildUrlLink() {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 15, 0, 0),
