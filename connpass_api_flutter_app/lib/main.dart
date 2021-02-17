@@ -18,4 +18,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// statefulWidgetのMyHomePageはevent_list_viewに切り出す
+// statefulWidgetのMyHomePageをevent_list_viewに切り出す
