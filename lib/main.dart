@@ -18,3 +18,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// MyHomePage() のStatefulWidgetを別ファイルevent_list_view.dartに切り出す
