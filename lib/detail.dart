@@ -73,8 +73,8 @@ class Detail extends StatelessWidget {
     Map<String, String> detailMap = {
       '開催日時': changeTimeFormat(event.startedAt),
       '終了日時': changeTimeFormat(event.endedAt),
-      '会場': event.place,
-      '会場の所在地': event.address,
+      // '会場': event.place,
+      // '会場の所在地': event.address,
     };
 
     return Container(child: buildDetailRow(detailMap));

@@ -4,30 +4,30 @@ class EventRepository {
   final int eventId;
   final String title;
   final String catchMessage;
-  final String description;
+  // final String description;
   final String eventUrl;
-  final String hashTag;
+  // final String hashTag;
   final String startedAt;
   final String endedAt;
-  final int limit;
-  final String eventType;
-  final String address;
-  final String place;
+  // final int limit;
+  // final String eventType;
+  // final String address;
+  // final String place;
 
   // コンストラクタ
   EventRepository({
     this.eventId,
     this.title,
     this.catchMessage,
-    this.description,
+    // this.description,
     this.eventUrl,
-    this.hashTag,
+    // this.hashTag,
     this.startedAt,
     this.endedAt,
-    this.limit,
-    this.eventType,
-    this.address,
-    this.place,
+    // this.limit,
+    // this.eventType,
+    // this.address,
+    // this.place,
   });
 
   factory EventRepository.fromJson(Map<String, dynamic> json) {
@@ -35,15 +35,15 @@ class EventRepository {
       eventId: json['event_id'],
       title: json['title'],
       catchMessage: json['catch'],
-      description: json['description'],
+      // description: json['description'],
       eventUrl: json['event_url'],
-      hashTag: json['hash_tag'],
+      // hashTag: json['hash_tag'],
       startedAt: json['started_at'],
       endedAt: json['ended_at'],
-      limit: json['limit'],
-      eventType: json['event_type'],
-      address: json['address'],
-      place: json['place'],
+      // limit: json['limit'],
+      // eventType: json['event_type'],
+      // address: json['address'],
+      // place: json['place'],
     );
   }
 
@@ -51,14 +51,14 @@ class EventRepository {
         'event_id': eventId,
         'title': title,
         'catch': catchMessage,
-        'description': description,
+        // 'description': description,
         'event_url': eventUrl,
-        'hash_tag': hashTag,
+        // 'hash_tag': hashTag,
         'started_at': startedAt,
         'ended_at': endedAt,
-        'limit': limit,
-        'event_type': eventType,
-        'address': address,
-        'place': place,
+        // 'limit': limit,
+        // 'event_type': eventType,
+        // 'address': address,
+        // 'place': place,
       };
 }
