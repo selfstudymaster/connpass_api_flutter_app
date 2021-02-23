@@ -123,14 +123,14 @@ class Detail extends StatelessWidget {
               style: TextStyle(
                 color: Colors.black,
               ),
-              text: '公式サイトは',
+              text: '詳細は',
             ),
             TextSpan(
                 style: TextStyle(
                   color: Colors.blue,
                   decoration: TextDecoration.underline,
                 ),
-                text: 'こちらから',
+                text: 'こちら',
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
                     await launch(

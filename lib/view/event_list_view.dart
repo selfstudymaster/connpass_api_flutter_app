@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } else if (_repository.resultsReturned < 100) {
       return Padding(
         padding: EdgeInsets.all(12),
-        child: Text('検索結果は' + _repository.resultsReturned.toString() + '件です'),
+        child: Text('検索結果は ${_repository.resultsReturned.toString()} 件です'),
       );
     } else {
       return Padding(
@@ -127,11 +127,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _resultCard(EventRepository eventRepository) {
     return Card(
       child: InkWell(
-        // タップしたらpushして次ページにイベント詳細を表示
+        // タップしたらpushされた次ページに遷移しイベント詳細を表示
         onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
+                // Detail()クラスをdetail.dartに切り出す
                 builder: (context) => Detail(event: eventRepository),
               ));
         },

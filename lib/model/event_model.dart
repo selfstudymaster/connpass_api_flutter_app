@@ -30,6 +30,7 @@ class EventRepository {
     // this.place,
   });
 
+  // fromJson
   factory EventRepository.fromJson(Map<String, dynamic> json) {
     return EventRepository(
       eventId: json['event_id'],
@@ -47,6 +48,7 @@ class EventRepository {
     );
   }
 
+  // toJson
   Map<String, dynamic> toJson() => {
         'event_id': eventId,
         'title': title,

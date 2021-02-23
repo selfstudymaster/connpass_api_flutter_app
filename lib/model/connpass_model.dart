@@ -15,6 +15,7 @@ class ConnpassRepository {
       this.resultsStart,
       this.events});
 
+  // fromJson
   factory ConnpassRepository.fromJson(Map<String, dynamic> json) {
     return ConnpassRepository(
         resultsReturned: json['results_returned'],
