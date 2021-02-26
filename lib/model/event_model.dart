@@ -1,5 +1,5 @@
-// EventRepositoryクラスの定義
-class EventRepository {
+// EventModelクラスの定義
+class EventModel {
   // メンバ変数
   final int eventId;
   final String title;
@@ -15,7 +15,7 @@ class EventRepository {
   // final String place;
 
   // コンストラクタ
-  EventRepository({
+  EventModel({
     this.eventId,
     this.title,
     this.catchMessage,
@@ -31,8 +31,8 @@ class EventRepository {
   });
 
   // fromJson
-  factory EventRepository.fromJson(Map<String, dynamic> json) {
-    return EventRepository(
+  factory EventModel.fromJson(Map<String, dynamic> json) {
+    return EventModel(
       eventId: json['event_id'],
       title: json['title'],
       catchMessage: json['catch'],

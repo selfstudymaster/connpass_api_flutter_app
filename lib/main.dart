@@ -7,7 +7,9 @@ void main() {
 
 class MyApp extends StatelessWidget {
   @override
+  // StatelessWidgetはbuild()メソッドを実装する必要がある
   Widget build(BuildContext context) {
+    // MaterialAppクラスはhomeプロパティにアプリケーションが正常に開始された時に最初に表示されるウィジェットを指定する
     return MaterialApp(
       title: 'Connpass API Flutter App',
       theme: ThemeData(

@@ -5,8 +5,9 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// event_list_viewの_resultCard(EventModel eventModel)ウィジェットでビルドするDetail(event: eventModel)クラスの定義
 class Detail extends StatelessWidget {
-  final EventRepository event;
+  final EventModel event;
   Detail({Key key, @required this.event}) : super(key: key);
 
   @override
@@ -61,8 +62,8 @@ class Detail extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          buildDetail(),
-          buildUrlLink(),
+          buildDetail(), // ディティールのビルド
+          buildUrlLink(), // URLリンクのビルド
         ],
       ),
     );
@@ -77,11 +78,14 @@ class Detail extends StatelessWidget {
       // '会場の所在地': event.address,
     };
 
-    return Container(child: buildDetailRow(detailMap));
+    return Container(
+        child: buildDetailRow(detailMap)); // buildDetailRow(detailMap)
   }
 
+  // buildDetail()の戻り値 buildDetailRow(detailMap)の定義
   Widget buildDetailRow(Map<String, String> detailMap) {
     List<Widget> detailList = [];
+
     detailMap.forEach((key, value) {
       detailList.add(Row(
         crossAxisAlignment: CrossAxisAlignment.start,
