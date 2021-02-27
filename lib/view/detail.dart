@@ -8,7 +8,19 @@ import 'package:url_launcher/url_launcher.dart';
 // event_list_viewの_resultCard(EventModel eventModel)ウィジェットでビルドするDetail(event: eventModel)クラスの定義
 class Detail extends StatelessWidget {
   final EventModel event;
-  Detail({Key key, @required this.event}) : super(key: key);
+  final int eventId;
+  final String catchMessage;
+  final String title;
+  final String event_url;
+
+  Detail(
+      {Key key,
+      @required this.event,
+      this.eventId,
+      this.catchMessage,
+      this.title,
+      this.event_url})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
