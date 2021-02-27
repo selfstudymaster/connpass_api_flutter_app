@@ -86,7 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<ConnpassModel> _getRepository(String searchWord) async {
     final http.Response response = await http.get(
-        'https://connpass.com/api/v1/event/?count=100&order=1&kewword=${searchWord}');
+        'https://connpass.com/api/v1/event/?count=100&order=1&kewword=' +
+            'searchWord');
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<String, dynamic>();
       ConnpassModel repository = ConnpassModel.fromJson(parsed);
