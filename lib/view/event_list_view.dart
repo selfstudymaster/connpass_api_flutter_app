@@ -23,6 +23,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   var _repository = new ConnpassModel();
 
+  // String title;
+
   // ListView
   // Stateを実装したクラスにはStatelessWidgetと同様の役割を持つbuild()メソッドが存在する
   @override
@@ -46,6 +48,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // 多分ここに問題があって検索ボタンを二回目以降押下しても反応しない
+  void _search() {
+    _getRepository(_controller.text).then((repository) {
+      setState(() {
+        _repository = repository;
+        // this.title = _controller.text;
+      });
+    });
+  }
+
   Widget _searchInput() {
     return ListView(
       shrinkWrap: true,
@@ -64,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.fromLTRB(100, 0, 100, 0),
           child: RaisedButton(
             child: const Text('検索'),
+            // ボタン押下でsetStateが呼び出される
             onPressed: _search,
           ),
         ),
@@ -71,15 +84,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _search() {
-    _getRepository(_controller.text).then((repository) {
-      setState(() {
-        _repository = repository;
-      });
-    });
-  }
-
-  // APIを呼び出す
   Future<ConnpassModel> _getRepository(String searchWord) async {
     final http.Response response = await http.get(
         'https://connpass.com/api/v1/event/?count=100&order=1&kewword=${searchWord}');
